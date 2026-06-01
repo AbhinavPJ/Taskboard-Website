@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum IssueType {
+  STORY
+  BUG
+  TASK
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ProjectRole {
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum GlobalRole {
+  USER
+  ADMIN
+}
+
+enum ColumnType {
+  TODO
+  INPROGRESS
+  REVIEW
+  DONE
+}
+
+enum ColumnScope {
+  STORY
+  TASKBUG
+}
+
+model User {
+  id                 String          @id @default(uuid())
+  name               String
+  username           String          @unique
+  email              String          @unique
+  password           String
+  role               GlobalRole      @default(USER)
+  avatar             String?
+  refreshToken       String?
+  projectMemberships ProjectMember[]
+  reportedIssues     Issue[]         @relation("Reporter")
+  assignedIssues     Issue[]         @relation("Assignee")
+  comments           Comment[]
+  auditLogs          AuditLog[]
+  notifications      Notification[]
+}
+
+model Project {
+  id          String          @id @default(uuid())
+  name        String
+  description String
+  colour      String
+  isArchived  Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  members     ProjectMember[]
+  boards      Board[]
+  issues      Issue[]
+}
+
+model ProjectMember {
+  id        String      @id @default(uuid())
+  userId    String
+  projectId String
+  role      ProjectRole
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@index([userId])
+  @@index([projectId])
+}
+
+model Board {
+  id          String               @id @default(uuid())
+  projectId   String
+  name        String
+  description String
+  resolvedColumnType ColumnType    @default(REVIEW)
+  closedColumnType   ColumnType    @default(DONE)
+  project     Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  columns     Column[]
+  workflowTransition WorkflowTransition?
+
+  @@index([projectId])
+}
+
+model Column {
+  id              String               @id @default(uuid())
+  boardId         String
+  name            String
+  columnType      ColumnType
+  scope           ColumnScope          @default(TASKBUG)
+  isImmutable     Boolean              @default(false)
+  position        Float
+  limit           Int?
+  board           Board                @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  issues          Issue[]
+  
+  @@index([boardId])
+  @@unique([boardId, scope, name])
+}
+
+model Issue {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  type        IssueType
+  priority    Priority
+  projectId   String
+  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  columnId    String?
+  column      Column?    @relation(fields: [columnId], references: [id], onDelete: SetNull)
+  reporterId  String
+  reporter    User       @relation("Reporter", fields: [reporterId], references: [id])
+  assigneeId  String?
+  assignee    User?      @relation("Assignee", fields: [assigneeId], references: [id])
+  parentId    String?
+  parent      Issue?     @relation("ParentChild", fields: [parentId], references: [id])
+  children    Issue[]    @relation("ParentChild")
+  dueDate     DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  resolvedAt  DateTime?
+  closedAt    DateTime?
+  comments    Comment[]
+  auditLogs   AuditLog[]
+
+  @@index([projectId])
+  @@index([columnId])
+  @@index([assigneeId])
+  @@index([parentId])
+  @@index([reporterId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  issueId   String
+  userId    String
+  parentId  String?
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent    Comment? @relation("CommentThread", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentThread")
+
+  @@index([issueId])
+  @@index([parentId])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  issueId   String
+  userId    String
+  action    String
+  oldValue  String?
+  newValue  String?
+  createdAt DateTime @default(now())
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([issueId])
+}
+
+model Notification {
+  id     String   @id @default(uuid())
+  msg    String
+  time   DateTime @default(now())
+  read   Boolean  @default(false)
+  projId String
+  userId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+
+model WorkflowTransition {
+  id              String   @id @default(uuid())
+  boardId         String   @unique
+  adjacencyMatrix Json
+  columnIds       Json
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  board           Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  @@index([boardId])
+
+}

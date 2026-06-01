@@ -1,0 +1,109 @@
+/*I found a cool image on reddit*/
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 27vh;
+  min-height: 100vh;
+  background: url('/src/assets/background.png') no-repeat center center;
+  background-size: cover;
+}
+
+/*I want a glassy backdrop for the form*/
+.form {
+  width: 100%;
+  max-width: 22rem;
+  padding: 1.8rem 1.4rem;
+  border-radius: 1.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0.75rem);
+}
+
+/*This defines how Sign in to Task Board looks*/
+.header h1 {
+  text-align: center;
+  margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+/*This defines how Manage your projects and tasks looks*/
+.header h2 {
+  text-align: center;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--colour-text-secondary);
+}
+
+/*Style for form field labels*/
+.fields label {
+  display: block;
+  margin-left: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+  color: var(--colour-text-secondary);
+}
+
+/*Style for form field inputs*/
+.fields input {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  color: #ffffff;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+/*while entering, we want it to look nicer*/
+.fields input:focus {
+  border-color: #ff00ee;
+  box-shadow: 0 0 0 3px rgba(255, 0, 238, 0.2);
+}
+
+/*Nice pink rounded button in the center*/
+.bt {
+  width: 50%;
+  padding: 0.75rem;
+  background: #ff00ee;
+  display: block;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 1.25rem;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+/*Blue <-> Pink transition*/
+.bt:hover {
+  background: var(--colour-primary-hover);
+}
+
+/*Style for error messages*/
+.error {
+  color: var(--colour-error);
+  background: var(--colour-error-bg);
+  padding: 0.1rem 0.1rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--colour-text-secondary);
+}
+
+/*Sign up button style*/
+.footer a {
+  color: #1da1ff;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

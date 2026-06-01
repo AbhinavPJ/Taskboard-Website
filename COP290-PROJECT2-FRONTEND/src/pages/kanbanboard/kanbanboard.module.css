@@ -1,0 +1,584 @@
+/*kanban board page*/
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+/*back button*/
+.back {
+  background: none;
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  color: var(--colour-text-secondary);
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.back:hover {
+  color: var(--colour-text-primary);
+  border-color: var(--colour-text-secondary);
+  background: var(--colour-primary-light);
+}
+/*board name*/
+.head h2 {
+  font-size: 1.35rem;
+
+  color: var(--colour-text-primary);
+  flex: 1;
+}
+
+/*add column button in header*/
+.addColBtn {
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+
+  background: var(--colour-primary-light);
+  border: 1px solid var(--colour-primary-light);
+  color: var(--colour-primary);
+  transition: all 0.2s;
+}
+.addColBtn:hover {
+  border-color: var(--colour-primary);
+}
+/*styling the manage workflow popup modal*/
+.modalHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.modalHead h3 {
+  margin-bottom: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 6px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.closeBtn:hover {
+  background: var(--colour-error-bg);
+  color: var(--colour-error);
+}
+
+/*Illegal drag operation should also be indicated and styled*/
+.dragAlert {
+  background: var(--colour-error-bg);
+  border: 1px solid rgba(245, 86, 78, 0.3);
+  color: var(--colour-error);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+/*loading state*/
+.loadWrap,
+.errorWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--colour-text-secondary);
+}
+
+.loadWrap {
+  min-height: 400px;
+}
+/*Loading screen should have the spinning animation*/
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--colour-border);
+  border-top-color: var(--colour-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*error state*/
+.errorWrap {
+  min-height: 300px;
+  font-size: 0.95rem;
+}
+/*STORIES is styled like this*/
+.storySectionTitle {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--colour-text-secondary);
+  margin: 1.1rem 0 0.5rem;
+}
+
+.storyCols,
+.cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  overflow-x: hidden;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.storyCols {
+  padding-top: 0.25rem;
+  padding-bottom: 0.75rem;
+}
+
+.storyCol,
+.col {
+  min-width: 0;
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 16px;
+  padding: 0.85rem;
+  box-shadow: var(--shadow-md);
+}
+
+.storyCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.storyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 72px;
+}
+
+/*the columns sit side by side*/
+.cols {
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/*Two sets of columns*/
+.colStack {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/*Drag in progress*/
+.colDropTarget {
+  outline: 2px dashed var(--colour-primary);
+  outline-offset: 3px;
+  border-radius: 16px;
+}
+
+/*Style individual column*/
+.col {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease;
+}
+
+/*column header - colored dot + title + count*/
+.colHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--colour-border);
+}
+
+/*color dot indicator per column*/
+.colDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.colTitle {
+  font-size: 0.9rem;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--colour-text-primary);
+  flex: 1;
+  cursor: default;
+}
+
+.colCount {
+  font-size: 0.7rem;
+  background: var(--colour-primary-light);
+  color: var(--colour-text-secondary);
+  padding: 0.2rem 0.55rem;
+  border-radius: 10px;
+}
+
+/*WIP limit badge*/
+.wipBadge {
+  font-size: 0.6rem;
+  background: var(--colour-error-bg);
+  color: var(--colour-error);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/*column delete button*/
+.colMenuBtn {
+  background: none;
+  border: none;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0 0.3rem;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.colMenuBtn:hover {
+  color: var(--colour-error);
+}
+
+/*rename */
+.renameWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.renameInput {
+  flex: 1;
+  padding: 0.25rem 0.4rem;
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-primary);
+  border-radius: 4px;
+  color: var(--colour-text-primary);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+/*empty column message*/
+.colEmpty {
+  text-align: center;
+  color: var(--colour-text-secondary);
+  font-size: 0.85rem;
+  padding: 3rem 1rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*add task button at bottom of column*/
+.addBtnOutside {
+  width: 100%;
+  background: var(--colour-primary-light);
+  border: 1px dashed var(--colour-primary-light);
+  border-radius: 8px;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+
+  transition: all 0.2s;
+  padding: 0.55rem;
+  font-size: 0.82rem;
+}
+
+.addBtnOutside:hover {
+  border-color: var(--colour-primary);
+  color: var(--colour-primary);
+}
+
+.colReorderBtn {
+  background: transparent;
+  border: 1px solid var(--colour-border);
+  color: var(--colour-text-secondary);
+  border-radius: 6px;
+  padding: 0.1rem 0.45rem;
+  display: flex;
+  line-height: 1;
+  cursor: grab;
+}
+
+.colReorderBtn:active {
+  cursor: grabbing;
+}
+
+/*task cards list area*/
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  min-height: 40px;
+  padding: 0.25rem 0;
+  transition:
+    background 0.15s,
+    outline-color 0.15s;
+  border-radius: 8px;
+}
+
+/*drop zone highlight when dragging over*/
+.taskList.dragOver {
+  background: var(--colour-primary-light);
+  outline: 2px dashed var(--colour-primary-light);
+  outline-offset: -2px;
+}
+
+/*individual task card*/
+.task {
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/*while being dragged*/
+.task.dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+.task:hover {
+  transform: scale(1.02);
+}
+/*top row: type icon + title*/
+.taskTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+/*Task/Bug/Story*/
+.typeIcon {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.typeStory {
+  background: var(--colour-primary-light);
+  color: var(--colour-primary);
+}
+
+.typeTask {
+  background: var(--colour-bg);
+  color: var(--colour-text-primary);
+}
+
+.typeBug,
+.highPriority,
+.criticalPriority {
+  background: var(--colour-error-bg);
+  color: var(--colour-error);
+}
+
+.taskTitle {
+  font-size: 0.9rem;
+  color: var(--colour-text-primary);
+  line-height: 1.45;
+}
+
+/*bottom row: priority + due date + assignee*/
+.taskBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.priority {
+  font-size: 0.65rem;
+
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.lowPriority {
+  background: var(--colour-primary-light);
+  color: var(--colour-primary);
+}
+
+.mediumPriority {
+  background: var(--colour-bg);
+  color: var(--colour-text-primary);
+}
+
+/*create task modal and add column modal*/
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 480px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  font-size: 1.1rem;
+  color: var(--colour-text-primary);
+  margin-bottom: 1rem;
+}
+
+.gp {
+  margin-bottom: 1rem;
+}
+
+.gp label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--colour-text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.gp input,
+.gp select,
+.textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  color: var(--colour-text-primary);
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.gp input:focus,
+.gp select:focus,
+.textarea:focus {
+  border-color: var(--colour-primary);
+}
+
+/*Task Description*/
+.textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.row .gp {
+  flex: 1;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+/*Cancel button for editing task description*/
+.cancelBtn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.cancelBtn:hover {
+  color: var(--colour-text-primary);
+}
+
+.createBtn {
+  padding: 0.5rem 1rem;
+  background: var(--colour-primary);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.85rem;
+
+  transition: background 0.15s;
+}
+
+.createBtn:hover {
+  background: var(--colour-primary-hover);
+}
+
+/*Board selector dropdown for multi-board projects*/
+.boardSelect {
+  flex: 1;
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  color: var(--colour-text-primary);
+  padding: 0.45rem 0.8rem;
+  font-size: 1rem;
+
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.boardSelect:hover,
+.boardSelect:focus {
+  border-color: var(--colour-primary);
+}
+
+/*Story-type cards: Enforce non-draggable !*/
+.storyCard {
+  border-left: 3px solid var(--colour-primary) !important;
+  opacity: 0.92;
+}
+.storyCard:hover {
+  transform: scale(1.02);
+}
+/*Viewer cards: Enforce non-draggable !*/
+.viewerCard {
+  cursor: default !important;
+}
+.viewerCard:hover {
+  transform: scale(1.02);
+}

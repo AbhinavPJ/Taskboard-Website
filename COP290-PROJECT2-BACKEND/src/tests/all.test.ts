@@ -1,0 +1,9 @@
+import './01-auth_start.test.ts';
+import './02-projects.test.ts';
+import './03-dashboard.test.ts';
+import './04-notifications.test.ts';
+import './05-board.test.ts';
+import './06-column.test.ts';
+import './07-issue.test.ts';
+import './08-comment.test.ts';
+import './09-auth_end.test.ts';

@@ -1,0 +1,14 @@
+.container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.toast {
+  background: var(--colour-primary-light);
+  color: var(--colour-primary);
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

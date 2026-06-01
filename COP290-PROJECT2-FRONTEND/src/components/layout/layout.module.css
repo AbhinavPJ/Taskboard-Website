@@ -1,0 +1,181 @@
+/*Sidebar and main content area, we have a toggle-able sidebar*/
+.shell {
+  --sidebar-width: 15rem;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns 0.2s ease-in-out;
+}
+.shellCollapsed {
+  grid-template-columns: 0px 1fr;
+}
+
+.sideBar {
+  background: var(--colour-primary);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+}
+
+.sideBarCollapsed {
+  --sidebar-width: 0rem;
+}
+
+/*style Task Board text*/
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  margin-left: 1.25rem;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  color: #b3bac5;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/*icon beside Dashboard,projects etc.*/
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/*logout btn*/
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  color: #b3bac5;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.logout:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/*main content area*/
+.main {
+  display: flex;
+  flex-direction: column;
+  background: var(--colour-bg);
+}
+
+/*Bar on the top*/
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 2rem;
+  color: var(--colour-text-primary);
+  background: var(--colour-surface);
+  border-bottom: 1px solid var(--colour-border);
+  min-height: 3rem;
+}
+
+.topbar h1 {
+  font-size: 1.2rem;
+  color: var(--colour-text-primary);
+}
+
+/*username*/
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/*light/dark mode switch*/
+.themeToggle {
+  background: none;
+  border: none;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+/*Background for the default avatar*/
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--colour-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.userName {
+  font-size: 1rem;
+
+  color: var(--colour-text-primary);
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/*notification count badge in sidebar*/
+.notifBadge {
+  background: #f5564e;
+  color: #ffffff;
+  font-size: 0.65rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.3rem;
+  margin-left: 0.5rem;
+}
+
+/*avatar image in topbar*/
+.avatarImg {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}

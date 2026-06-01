@@ -1,0 +1,263 @@
+/*Good morning looks like this*/
+.welcome h2 {
+  font-size: 30px;
+  color: var(--colour-text-primary);
+  margin-bottom: 0.25rem;
+}
+/*Line below that looks like this*/
+.welcome h3 {
+  color: var(--colour-text-secondary);
+  font-size: 0.875rem;
+}
+
+/*I want my cards in a kahoot-options style 2x2 grid*/
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/*Keep the text in it centered*/
+.card {
+  height: 9rem;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+/*These hex codes are the colours used by actual kahoot*/
+.red {
+  background: #dc234c;
+}
+
+.blue {
+  background: #1d81d2;
+}
+
+.yellow {
+  background: #dbae00;
+}
+
+.green {
+  background: #2f9d11;
+}
+/*Number inside the card looks like this*/
+.card h3 {
+  font-size: 1.75rem;
+  color: var(--colour-text-primary);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+/*Text below the number looks like this*/
+.card p {
+  font-size: 0.8125rem;
+  color: var(--colour-text-primary);
+}
+
+/*Make these align with above cards!*/
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/*Style the recent projects&activity panel*/
+.panel {
+  background: var(--colour-surface);
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+}
+
+/*Style the Recent project text*/
+.panelHead h3 {
+  font-size: 0.875rem;
+
+  color: var(--colour-text-primary);
+}
+
+/*Make the Recent project text responsive*/
+.panelHead h3:hover {
+  transform: scale(1.02);
+}
+
+.panel a {
+  font-size: 0.75rem;
+  color: var(--colour-link);
+}
+
+.panel a:hover {
+  color: var(--colour-link-hover);
+  text-decoration: underline;
+}
+
+/*project rows*/
+.projectRow {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--colour-border);
+  cursor: pointer;
+}
+
+/*Make each project row responsive*/
+.projectRow:hover {
+  background: var(--colour-primary-light);
+}
+
+/*I want a dot which indicates project colour*/
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+/*project name and count*/
+.projectInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.projectInfo {
+  font-size: 1rem;
+  margin-right: 1rem;
+  color: var(--colour-text-primary);
+}
+
+.projectInfo span {
+  font-size: 0.8rem;
+  color: var(--colour-text-secondary);
+}
+/*activity panel scroll*/
+.activityList {
+  max-height: 320px; /*adjust as needed*/
+  overflow-y: auto;
+}
+
+/*activity row like projectRow*/
+.actItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--colour-border);
+  cursor: pointer;
+}
+
+.actItem:hover {
+  background: var(--colour-primary-light);
+}
+
+.actItem:last-child {
+  border-bottom: none;
+}
+
+/*small colored dot (same as projects)*/
+.actDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/*text container*/
+.actText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*main text*/
+.actText strong {
+  font-size: 0.9rem;
+  color: var(--colour-text-primary);
+}
+
+/*secondary text*/
+.actText span {
+  font-size: 0.75rem;
+  color: var(--colour-text-secondary);
+}
+
+/*time on right like badge*/
+.actTime {
+  font-size: 0.7rem;
+  color: var(--colour-text-secondary);
+  white-space: nowrap;
+}
+
+.badge {
+  font-size: 0.7rem;
+  background: var(--colour-text-secondary);
+  color: var(--colour-primary);
+  margin-left: auto;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+/*progress bar*/
+.progressPanel {
+  margin-top: 1.25rem;
+  background: var(--colour-surface);
+  border-radius: 1.2rem;
+  padding: 1rem 1.25rem;
+}
+
+.progressPanel:hover {
+  transform: scale(1.02);
+}
+
+.progressHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progressLabel {
+  font-size: 0.8125rem;
+  color: var(--colour-text-primary);
+}
+
+.progressPct {
+  font-size: 0.875rem;
+  color: var(--colour-text-primary);
+}
+
+.progressTrack {
+  width: 100%;
+  height: 6px;
+  background: var(--colour-border);
+  border-radius: 3px;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--colour-text-primary);
+  border-radius: 3px;
+}
+
+.progressSub {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--colour-text-secondary);
+}

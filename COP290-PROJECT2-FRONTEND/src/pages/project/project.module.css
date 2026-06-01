@@ -1,0 +1,408 @@
+/*projects page*/
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.head h2 {
+  font-size: 1.5rem;
+  
+  color: var(--colour-text-primary);
+}
+
+.newBtn {
+  padding: 0.7rem 1.4rem;
+  background: var(--colour-text-primary);
+  color: var(--colour-surface);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.newBtn:hover {
+  background: #222;
+}
+
+/*project cards grid*/
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+  border-color: var(--colour-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/*colour bar at top of card*/
+.bar {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 0.75rem;
+}
+
+.card h3 {
+  font-size: 1rem;
+  
+  color: var(--colour-text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.card p {
+  font-size: 0.8rem;
+  color: var(--colour-text-secondary);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.taskCount {
+  font-size: 0.75rem;
+  color: var(--colour-text-secondary);
+}
+
+/*empty state*/
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/*modal overlay - covers the whole screen*/
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+/*the modal box itself*/
+.modal {
+  background: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal h3 {
+  font-size: 1.1rem;
+  color: var(--colour-text-primary);
+  margin-bottom: 1rem;
+}
+
+/*form field group*/
+.gp {
+  margin-bottom: 1rem;
+}
+
+.gp label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--colour-text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.gp input,
+.gp textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: var(--colour-bg);
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  color: var(--colour-text-primary);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.gp textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.gp input:focus,
+.gp textarea:focus {
+  border-color: #ffffff;
+}
+
+/*color picker row*/
+.colors {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.clrDot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.clrDot.active {
+  border-color: #fff;
+}
+
+/*modal buttons*/
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.cancelBtn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--colour-border);
+  border-radius: 8px;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.cancelBtn:hover {
+  color: var(--colour-text-primary);
+  border-color: var(--colour-text-secondary);
+}
+
+.createBtn {
+  padding: 0.5rem 1rem;
+  background: var(--colour-primary);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  
+}
+
+.createBtn:hover {
+  background: var(--colour-primary-hover);
+}
+
+/*card header with settings gear*/
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.settingsBtn {
+  background: none;
+  border: none;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.settingsBtn:hover {
+  color: var(--colour-text-primary);
+}
+
+/*card footer*/
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dateLabel {
+  font-size: 0.7rem;
+  color: #555;
+  margin-left: auto;
+}
+
+.isArchivedBadge {
+  font-size: 0.65rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #888;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  
+  text-transform: uppercase;
+}
+
+/*archived card*/
+.card.isArchived {
+  opacity: 0.5;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--colour-border);
+}
+
+.tab {
+  flex: 1;
+  padding: 0.6rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.15s;
+}
+
+.tab:hover {
+  color: var(--colour-text-primary);
+}
+
+.tabActive {
+  color: var(--colour-primary);
+  border-bottom-color: var(--colour-primary);
+}
+
+/*member list*/
+.memberList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--colour-bg);
+  border-radius: 8px;
+}
+
+.memberInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.memberName {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--colour-text-primary);
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.memberEmail {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--colour-text-secondary);
+}
+
+.memberRole {
+  padding: 0.25rem 0.4rem;
+  background: var(--colour-bg);
+  border: 1px solid var(--colour-border);
+  border-radius: 4px;
+  color: var(--colour-text-primary);
+  font-size: 0.75rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.memberRole:focus {
+  border-color: var(--colour-primary);
+}
+
+.removeMemberBtn {
+  background: none;
+  border: none;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
+  transition: color 0.15s;
+}
+
+.removeMemberBtn:hover {
+  color: var(--colour-error);
+}
+
+/*add member row*/
+.addMemberRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.addMemberInput {
+  flex: 1;
+  padding: 0.45rem 0.65rem;
+  background: var(--colour-bg);
+  border: 1px solid var(--colour-border);
+  border-radius: 6px;
+  color: var(--colour-text-primary);
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.addMemberInput:focus {
+  border-color: var(--colour-primary);
+}
+
+.addMemberBtn {
+  padding: 0.45rem 0.8rem;
+  background: var(--colour-primary);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.addMemberBtn:hover {
+  background: var(--colour-primary-hover);
+}
+
+.emptyMembers {
+  color: #555;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/*wider modal for settings*/
+.modal {
+  width: 460px;
+}

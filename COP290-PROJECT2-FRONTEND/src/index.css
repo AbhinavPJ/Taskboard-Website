@@ -1,0 +1,69 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-family: 'Bebas Neue', sans-serif;
+  --colour-primary: #6f4e37;
+  --colour-primary-light: #deebff;
+  --colour-primary-hover: #b3b3b3;
+  --colour-bg: #f4f5f7;
+  --colour-surface: #ffffff;
+  --colour-text-primary: #172b4d;
+  --colour-text-secondary: #b3b3b3;
+  --colour-border: #dfe1e6;
+  --colour-error: #de350b;
+  --colour-error-bg: #ffebe6;
+  --colour-success: #006644;
+  --colour-link: #006eff;
+  --colour-link-hover: #1b7abe;
+}
+
+html.dark {
+  --colour-primary: #0059ff;
+  --colour-primary-hover: #b6d0ff;
+  --colour-primary-light: rgba(255, 255, 255, 0.08);
+  --colour-bg: #0d0d0d;
+  --colour-surface: #423e3e;
+  --colour-text-primary: #ececec;
+  --colour-text-secondary: #b5bcc8;
+  --colour-border: #31343b;
+  --colour-error: #ff6b6b;
+  --colour-error-bg: rgba(255, 107, 107, 0.15);
+  --colour-success: #4ade80;
+}
+
+html,
+body,
+#root {
+  transition:
+    background-color 0.5s ease,
+    color 0.3s ease;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  background: var(--colour-bg);
+  color: var(--colour-text-primary);
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: var(--colour-primary);
+  text-decoration: none;
+}
